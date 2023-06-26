@@ -31,4 +31,17 @@ public class UserController extends BaseController {
         return new JsonResult<>(OK);
     }
 
+    /**
+     * 用户登陆
+     * @param username
+     * @param password
+     * @return
+     */
+    @RequestMapping("login")
+    public JsonResult<User> login(String username, String password) {
+        User user = iUserService.Login(username, password);
+        //写session
+        return new JsonResult<User>(OK, user);
+    }
+
 }

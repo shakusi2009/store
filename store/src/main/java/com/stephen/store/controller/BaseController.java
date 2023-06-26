@@ -1,8 +1,6 @@
 package com.stephen.store.controller;
 
-import com.stephen.store.service.ex.InsertException;
-import com.stephen.store.service.ex.ServiceException;
-import com.stephen.store.service.ex.UsernameDupliatedException;
+import com.stephen.store.service.ex.*;
 import com.stephen.store.util.JsonResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -19,11 +17,14 @@ public class BaseController {
         JsonResult<Void> result = new JsonResult<>();
         if (e instanceof UsernameDupliatedException) {
             result.setState(4000);
-            result.setMessage(e.getMessage());
         } else if (e instanceof InsertException) {
             result.setState(5000);
-            result.setMessage(e.getMessage());
+        } else if (e instanceof UserNotExistException) {
+            result.setState(4001);
+        } else if (e instanceof PasswordNotMatchException) {
+            result.setState(5001);
         }
+        result.setMessage(e.getMessage());
 
         return result;
 

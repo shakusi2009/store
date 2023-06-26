@@ -13,4 +13,6 @@ public interface IUserService {
      * @param user
      */
     void Register(User user);
+
+    User Login(String username, String password);
 }

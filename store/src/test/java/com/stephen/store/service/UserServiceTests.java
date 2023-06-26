@@ -38,5 +38,12 @@ public class UserServiceTests {
         }
     }
 
+    @Test
+    public void login() {
+        User user = iUserService.Login("shakusi04", "12345");
+        System.out.println("------105-----> ok");
+        System.out.println(user);
+    }
+
 
 }

@@ -4,6 +4,8 @@ import com.stephen.store.mapper.IUserMapper;
 import com.stephen.store.pojo.User;
 import com.stephen.store.service.IUserService;
 import com.stephen.store.service.ex.InsertException;
+import com.stephen.store.service.ex.PasswordNotMatchException;
+import com.stephen.store.service.ex.UserNotExistException;
 import com.stephen.store.service.ex.UsernameDupliatedException;
 import com.stephen.store.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +58,21 @@ public class UserServiceImpl implements IUserService {
         }
 
 
+    }
+
+    @Override
+    public User Login(String username, String password) {
+        User result = iUserMapper.findByUsername(username);
+        if (result == null) {
+            throw new UserNotExistException("用户不存在");
+        }
+
+        //登陆密码加盐
+        String md5Password = commonUtil.getMD5Encrypt(password, result.getSalt());
+        if (!md5Password.equals(result.getPassword())) {
+            throw new PasswordNotMatchException("账号密码不正确！");
+        }
+
+        return result;
     }
 }
