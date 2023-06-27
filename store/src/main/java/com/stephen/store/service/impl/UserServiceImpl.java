@@ -11,6 +11,7 @@ import com.stephen.store.util.CommonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.UUID;
 
@@ -74,5 +75,22 @@ public class UserServiceImpl implements IUserService {
         }
 
         return result;
+    }
+
+    @Override
+    public Integer ModifyPassword(String username, String password, String modifyUser) {
+        User result = iUserMapper.findByUsername(username);
+        if (result == null) {
+            throw new UserNotExistException("用户不存在");
+        }
+
+        //新密码加盐
+        String md5Password = commonUtil.getMD5Encrypt(password, result.getSalt());
+
+        Integer rows = iUserMapper.modifyPassword(username, md5Password, username);
+        if (rows != 1) {
+            throw new InsertException("用户注册过程中产生未知的异常!");
+        }
+        return rows;
     }
 }

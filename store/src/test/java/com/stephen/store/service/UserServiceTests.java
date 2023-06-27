@@ -45,5 +45,12 @@ public class UserServiceTests {
         System.out.println(user);
     }
 
+    @Test
+    public void modifypwd() {
+        Integer rows = iUserService.ModifyPassword("shakusi04", "88888", "kakaxi");
+        System.out.println("------106-----> ok");
+        System.out.println(rows);
+    }
+
 
 }

@@ -4,6 +4,8 @@ import com.stephen.store.service.ex.*;
 import com.stephen.store.util.JsonResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * @Author: Stephen Zhang
  * @Date: 2023/6/26 21:56
@@ -28,5 +30,14 @@ public class BaseController {
 
         return result;
 
+    }
+
+    protected final Integer getUidFromSession(HttpSession httpSession) {
+        return Integer.valueOf(httpSession.getAttribute("uid").toString());
+
+    }
+
+    protected final String getUsernameFromSession(HttpSession httpSession) {
+        return httpSession.getAttribute("username").toString();
     }
 }

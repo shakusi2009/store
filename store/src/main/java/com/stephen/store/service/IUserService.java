@@ -15,4 +15,6 @@ public interface IUserService {
     void Register(User user);
 
     User Login(String username, String password);
+
+    Integer ModifyPassword(String username, String password, String modifiedUser);
 }

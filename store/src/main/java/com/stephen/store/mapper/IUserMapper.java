@@ -22,4 +22,13 @@ public interface IUserMapper {
      */
     User findByUsername(String username);
 
+    /**
+     * 修改密码
+     * @param username
+     * @param password
+     * @param modifiedUser
+     * @return
+     */
+    Integer modifyPassword(String username, String password, String modifiedUser);
+
 }
